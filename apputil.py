@@ -1,4 +1,5 @@
 from collections import defaultdict, Counter
+import numpy as np
 
 
 class MarkovText(object):
@@ -30,11 +31,36 @@ class MarkovText(object):
 
         self.term_dict = return_dict
 
-        return return_dict
+        return None
 
 
     def generate(self, seed_term=None, term_count=15):
-
-        # your code here ...
+        #Start by getting the corresponding word 
+        seed_word = self.corpus.split(" ")[seed_term]
+        #Get the new sentance 
+        sentance = self.get_next_word(term_count, [seed_word])
+        #Add the sentance to the initial word
+        self.sentance = " ".join(sentance)
 
         return None
+    
+    def get_next_word(self, seed_term, sentance):
+        #Start by getting the corresponding word 
+        seed_word = self.corpus.split(" ")[seed_term]
+        
+        #sentance = [seed_word]
+        if seed_term != 0:
+            #get the possible next words
+            states = self.term_dict[seed_word]
+            #pick a new word 
+            next_word = str(np.random.choice(states))
+            
+            try:
+                sentance.append(next_word)
+
+            except: 
+                print("No next word ")
+            return self.get_next_word(seed_term - 1, sentance)    
+            
+        else: 
+            return sentance  
