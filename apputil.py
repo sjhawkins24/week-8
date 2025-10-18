@@ -36,7 +36,10 @@ class MarkovText(object):
 
     def generate(self, seed_term=None, term_count=15):
         #Start by getting the corresponding word 
-        seed_word = seed_term#self.corpus.split(" ")[seed_term]
+        if seed_term is None: 
+            seed_word = str(np.random.choice(self.corpus)) 
+        else: 
+            seed_word = seed_term#self.corpus.split(" ")[seed_term]
         #If the seed word exists, run the function 
         if seed_word in self.corpus:
             #Get the new sentance 
