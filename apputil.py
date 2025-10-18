@@ -36,20 +36,22 @@ class MarkovText(object):
 
     def generate(self, seed_term=None, term_count=15):
         #Start by getting the corresponding word 
-        seed_word = self.corpus.split(" ")[seed_term]
+        seed_word = seed_term#self.corpus.split(" ")[seed_term]
         #Get the new sentance 
-        sentance = self.get_next_word(term_count, [seed_word])
+        sentance = self.get_next_word(seed_term = seed_word,
+                                      term_count =  term_count,
+                                       sentance =  [seed_word])
         #Add the sentance to the initial word
         self.sentance = " ".join(sentance)
 
         return None
     
-    def get_next_word(self, seed_term, sentance):
+    def get_next_word(self, seed_term, term_count, sentance):
         #Start by getting the corresponding word 
-        seed_word = self.corpus.split(" ")[seed_term]
+        seed_word = seed_term #self.corpus.split(" ")[seed_term]
         
         #sentance = [seed_word]
-        if seed_term != 0:
+        if term_count != 0:
             #get the possible next words
             states = self.term_dict[seed_word]
             #pick a new word 
@@ -60,7 +62,7 @@ class MarkovText(object):
 
             except: 
                 print("No next word ")
-            return self.get_next_word(seed_term - 1, sentance)    
+            return self.get_next_word(next_word, term_count - 1, sentance)    
             
         else: 
             return sentance  
