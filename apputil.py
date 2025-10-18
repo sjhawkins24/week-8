@@ -37,12 +37,17 @@ class MarkovText(object):
     def generate(self, seed_term=None, term_count=15):
         #Start by getting the corresponding word 
         seed_word = seed_term#self.corpus.split(" ")[seed_term]
-        #Get the new sentance 
-        sentance = self.get_next_word(seed_term = seed_word,
-                                      term_count =  term_count,
-                                       sentance =  [seed_word])
-        #Add the sentance to the initial word
-        self.sentance = " ".join(sentance)
+        #If the seed word exists, run the function 
+        if seed_word in self.corpus:
+            #Get the new sentance 
+            sentance = self.get_next_word(seed_term = seed_word,
+                                        term_count =  term_count,
+                                        sentance =  [seed_word])
+            #Add the sentance to the initial word
+            self.sentance = " ".join(sentance)
+        
+        else: 
+            raise ValueError("Selected word does not exist in corpus")
 
         return None
     
