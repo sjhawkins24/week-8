@@ -62,8 +62,12 @@ class MarkovText(object):
         if term_count != 0:
             #get the possible next words
             states = self.term_dict[seed_word]
+            #IF there are no next words, select a word at random 
+            if(len(states) == 0):
+                next_word = str(np.random.choice(self.corpus)) 
+            else:     
             #pick a new word 
-            next_word = str(np.random.choice(states))
+                next_word = str(np.random.choice(states))
             
             try:
                 sentance.append(next_word)
