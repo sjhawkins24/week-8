@@ -35,9 +35,10 @@ class MarkovText(object):
 
 
     def generate(self, seed_term=None, term_count=15):
+        """Main generator function"""
         #Start by getting the corresponding word 
         if seed_term is None: 
-            seed_word = str(np.random.choice(self.corpus)) 
+            seed_word = self.get_seed_word()#str(np.random.choice(self.corpus)) 
         else: 
             seed_word = seed_term#self.corpus.split(" ")[seed_term]
         #If the seed word exists, run the function 
@@ -55,6 +56,7 @@ class MarkovText(object):
         return None
     
     def get_next_word(self, seed_term, term_count, sentance):
+        """Recursive function to generate series of words to turn into a sentance"""
         #Start by getting the corresponding word 
         seed_word = seed_term #self.corpus.split(" ")[seed_term]
         
@@ -64,10 +66,15 @@ class MarkovText(object):
             states = self.term_dict[seed_word]
             #IF there are no next words, select a word at random 
             if(len(states) == 0):
-                next_word = str(np.random.choice(self.corpus)) 
+                next_word = self.get_seed_word()#str(np.random.choice(self.corpus)) 
             else:     
             #pick a new word 
-                next_word = str(np.random.choice(states))
+
+                if(len(states) > 1):
+                    next_word = self.get_next_state(states)#str(np.random.choice(self.corpus))
+
+                else: 
+                    next_word = states[0]
             
             try:
                 sentance.append(next_word)
@@ -78,3 +85,14 @@ class MarkovText(object):
             
         else: 
             return sentance  
+    def get_seed_word(self):
+        """Functio to select a random word from the corpus"""
+        split_words = self.corpus.split(" ")
+        n_words = len(split_words)
+        selected_index = np.random.choice(range(1,n_words))
+        return(split_words[selected_index])
+    def get_next_state(self, states):
+        """Function to select a random word from the states list"""
+        n_words = len(states)
+        selected_index = np.random.choice(range(1,n_words))
+        return(states[selected_index])
