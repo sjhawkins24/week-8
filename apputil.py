@@ -51,19 +51,7 @@ class MarkovText(object):
             self.sentance = " ".join(sentance)
         
         else: 
-            #First see if stripping out the punctuation helps  
-            seed_word = re.sub(r',', '', seed_word)
-            seed_word = re.sub(r'.', '', seed_word)
-            if(seed_word in self.corpus):
-                #Get the new sentance 
-                sentance = self.get_next_word(seed_term = seed_word,
-                                            term_count =  term_count,
-                                            sentance =  [seed_word])
-                #Add the sentance to the initial word
-                self.sentance = " ".join(sentance)
-            else: 
-
-                raise ValueError("Selected word does not exist in corpus")
+            raise ValueError("Selected word does not exist in corpus")
 
         return None
     
