@@ -26,7 +26,7 @@ class MarkovText(object):
                 try: 
                     return_dict[word].append(split_words[index + 1])
                 except: 
-                    print(f"{word}, is the last word in the corpus. No further words")    
+                    print(f"{word} is the last word in the corpus. No further words")    
 
 
         self.term_dict = return_dict
@@ -37,6 +37,8 @@ class MarkovText(object):
     def generate(self, seed_term=None, term_count=15):
         """Main generator function"""
         #Start by getting the corresponding word 
+        print(seed_term)
+        print(term_count)
         if seed_term is None: 
             seed_word = self.get_seed_word()#str(np.random.choice(self.corpus)) 
         else: 
