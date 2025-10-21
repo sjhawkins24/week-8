@@ -1,6 +1,6 @@
 from collections import defaultdict, Counter
 import numpy as np
-
+import re 
 
 class MarkovText(object):
 
@@ -51,7 +51,19 @@ class MarkovText(object):
             self.sentance = " ".join(sentance)
         
         else: 
-            raise ValueError("Selected word does not exist in corpus")
+            #First see if stripping out the punctuation helps  
+            seed_word = re.sub(r',', '', seed_word)
+            seed_word = re.sub(r'.', '', seed_word)
+            if(seed_word in self.corpus):
+                #Get the new sentance 
+                sentance = self.get_next_word(seed_term = seed_word,
+                                            term_count =  term_count,
+                                            sentance =  [seed_word])
+                #Add the sentance to the initial word
+                self.sentance = " ".join(sentance)
+            else: 
+
+                raise ValueError("Selected word does not exist in corpus")
 
         return None
     
@@ -87,7 +99,10 @@ class MarkovText(object):
             return sentance  
     def get_seed_word(self):
         """Functio to select a random word from the corpus"""
-        split_words = self.corpus.split(" ")
+        try: 
+            split_words = self.corpus.split(" ")
+        except: 
+            print("Corpus is empty, cannot work without vailid text docs")   
         n_words = len(split_words)
         selected_index = np.random.choice(range(1,n_words))
         return(split_words[selected_index])
