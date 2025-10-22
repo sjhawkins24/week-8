@@ -25,8 +25,6 @@ class MarkovText(object):
 
             for index in indices: 
                 try: 
-                    print(word)
-                    print(index)
                     return_dict[word].append(split_words[index + 1])
                 except Exception as e:
                     print(e)
