@@ -19,13 +19,17 @@ class MarkovText(object):
         #Create empty dictionary
         return_dict = defaultdict(list)
         #Get a list of all the words in the corpus
+       
         for word in unique_words: 
             indices =  [i for i, x in enumerate(split_words) if x == word]
 
             for index in indices: 
                 try: 
+                    print(word)
+                    print(index)
                     return_dict[word].append(split_words[index + 1])
-                except: 
+                except Exception as e:
+                    print(e)
                     print(f"{word} is the last word in the corpus. No further words")    
 
 
