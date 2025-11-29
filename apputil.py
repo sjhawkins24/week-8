@@ -40,8 +40,8 @@ class MarkovText(object):
     def generate(self, seed_term=None, term_count=15):
         """Main generator function"""
         #Start by getting the corresponding word 
-        #print(seed_term)
-        #print(term_count)
+        print(seed_term)
+        print(term_count)
         if seed_term is None: 
             seed_word = self.get_seed_word()#str(np.random.choice(self.corpus)) 
         else: 
@@ -98,6 +98,8 @@ class MarkovText(object):
             n_words = len(split_words)
         except: 
             print("Corpus is empty, cannot work without vailid text docs")   
+
+            
         selected_index = np.random.choice(range(1,n_words))
         return(split_words[selected_index])
     def get_next_state(self, states):
