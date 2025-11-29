@@ -92,12 +92,12 @@ class MarkovText(object):
             return sentance  
     def get_seed_word(self):
         """Function to select a random word from the corpus"""
+        n_words = 1
         try: 
             split_words = self.corpus.split(" ")
-        except: 
-            n_words = 1
-            print("Corpus is empty, cannot work without vailid text docs")   
             n_words = len(split_words)
+        except: 
+            print("Corpus is empty, cannot work without vailid text docs")   
         selected_index = np.random.choice(range(1,n_words))
         return(split_words[selected_index])
     def get_next_state(self, states):
