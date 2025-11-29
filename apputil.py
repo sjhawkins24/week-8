@@ -23,12 +23,12 @@ class MarkovText(object):
         for word in unique_words: 
             indices =  [i for i, x in enumerate(split_words) if x == word]
 
-            for index in (indices -1): 
-                #try: 
-                return_dict[word].append(split_words[index + 1])
-                #except Exception as e:
-                   # print(e)
-                   # print(f"{word} is the last word in the corpus. No further words")    
+            for index in indices: 
+                try: 
+                    return_dict[word].append(split_words[index + 1])
+                except Exception as e:
+                    print(e)
+                    print(f"{word} is the last word in the corpus. No further words")    
 
 
         self.term_dict = return_dict
