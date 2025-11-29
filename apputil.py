@@ -58,7 +58,7 @@ class MarkovText(object):
         else: 
             raise ValueError("Selected word does not exist in corpus")
 
-        return sentance
+        return self.sentance
     
     def get_next_word(self, seed_term, term_count, sentance):
         """Recursive function to generate series of words to turn into a sentance"""
