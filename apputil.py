@@ -11,7 +11,7 @@ class MarkovText(object):
     def get_term_dict(self):
 
         #First split the one string into a list of words 
-        split_words = self.corpus.split(" ")
+        split_words = self.corpus.split("")
         #get the unique words for the keys 
         #I was origonally transforming this into a set and then a list to 
         #get the unique words, but it didn't match the output given
