@@ -23,12 +23,12 @@ class MarkovText(object):
         for word in unique_words: 
             indices =  [i for i, x in enumerate(split_words) if x == word]
 
-            for index in indices: 
-                try: 
-                    return_dict[word].append(split_words[index + 1])
-                except Exception as e:
-                    print(e)
-                    print(f"{word} is the last word in the corpus. No further words")    
+            for index in (indices -1): 
+                #try: 
+                return_dict[word].append(split_words[index + 1])
+                #except Exception as e:
+                   # print(e)
+                   # print(f"{word} is the last word in the corpus. No further words")    
 
 
         self.term_dict = return_dict
@@ -39,8 +39,8 @@ class MarkovText(object):
     def generate(self, seed_term=None, term_count=15):
         """Main generator function"""
         #Start by getting the corresponding word 
-        print(seed_term)
-        print(term_count)
+        #print(seed_term)
+        #print(term_count)
         if seed_term is None: 
             seed_word = self.get_seed_word()#str(np.random.choice(self.corpus)) 
         else: 
@@ -57,7 +57,7 @@ class MarkovText(object):
         else: 
             raise ValueError("Selected word does not exist in corpus")
 
-        return None
+        return sentance
     
     def get_next_word(self, seed_term, term_count, sentance):
         """Recursive function to generate series of words to turn into a sentance"""
@@ -80,11 +80,11 @@ class MarkovText(object):
                 else: 
                     next_word = states[0]
             
-            try:
-                sentance.append(next_word)
+            #try:
+            sentance.append(next_word)
 
-            except: 
-                print("No next word ")
+            #except: 
+                #print("No next word ")
             return self.get_next_word(next_word, term_count - 1, sentance)    
             
         else: 
@@ -92,7 +92,7 @@ class MarkovText(object):
     def get_seed_word(self):
         """Functio to select a random word from the corpus"""
         try: 
-            split_words = self.corpus.split(" ")
+            split_words = self.corpus.split("")
         except: 
             print("Corpus is empty, cannot work without vailid text docs")   
         n_words = len(split_words)
