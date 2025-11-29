@@ -44,6 +44,7 @@ class MarkovText(object):
         print(term_count)
         if seed_term is None: 
             seed_word = self.get_seed_word()#str(np.random.choice(self.corpus)) 
+            term_count = term_count - 1
         else: 
             seed_word = seed_term#self.corpus.split(" ")[seed_term]
         #If the seed word exists, run the function 
